@@ -21,6 +21,3 @@ def simulate(environment_name, model, env=None, max_iterations=10**3, render=Fal
             break
 
     return pd.DataFrame(history)
-
-
-
