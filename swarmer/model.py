@@ -20,26 +20,22 @@ class RectModel(object):
     def reset_values(self):
         self.values = np.zeros(self.shape)
 
-    def run(self, x, decay=False):
+
+    def run_once(self, x):
         self.reset_values()
         self.values[0] = x
-
-        self.edge_passthrough = np.zeros(self.weight_shape)
 
         if self.activation_function == 'relu':
             for n, layer in enumerate(self.weights):
                 self.values[n+1] = np.dot(self.values[n].clip(min=0) * self.node_health[n], layer)
-                # weight value i, j is edge weight between 
-                # i --> j node ns in layers
-                self.edge_passthrough[n] = self.values[n] * layer
         else:
             raise Exception("Unknown activation function: {0}".format(self.activation_function))
 
-        self.node_passthrough = self.values.copy()
-
-        if decay:
-            enp = np.exp(np.abs(self.node_passthrough))
-            node_health_delta = (enp / enp.mean() - 1.0) * 0.01
-            self.node_health += node_health_delta
-
         return self.values[-1]
+
+
+    def mutate(self, rate=0.001, edge_health_threshold=0.02):
+        edge_diff = (self.edge_health >= edge_health_threshold).astype(int) * (np.random.rand(*self.weight_shape) * 2.0 - 1.0)* rate
+        self.weights += edge_diff
+        return edge_diff
+
