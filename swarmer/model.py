@@ -1,4 +1,3 @@
-import networkx as nx
 import numpy as np
 
 class RectModel(object):
@@ -29,7 +28,7 @@ class RectModel(object):
         if self.activation_function == 'relu':
             for n, layer in enumerate(self.weights):
                 self.values[n+1] = np.dot(self.values[n].clip(min=0) * self.node_health[n], layer)
-                # weight value i, j is edge weight between 
+                # weight value i, j is edge weight between
                 # i --> j node ns in layers
                 self.edge_passthrough[n] = self.values[n] * layer
         else:
