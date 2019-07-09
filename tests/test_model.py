@@ -22,7 +22,7 @@ def test_model():
 
 def test_perf_simple():
     x = np.random.rand(10, 784)
-    start=time.time()
+    start = time.time()
     model = swarmer.RectModel(784, 100)
     print("Initialization took {0}s".format(time.time()-start))
     start = time.time()
