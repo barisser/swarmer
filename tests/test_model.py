@@ -12,5 +12,5 @@ def test_model():
     model = swarmer.RectModel(4, 3)
     x = np.random.rand(4)
     response = model.run_once(x)
-    diff = model.mutate()
+    model.mutate()
     assert (response != model.run_once(x)).all()
