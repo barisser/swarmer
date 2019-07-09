@@ -15,7 +15,6 @@ class RectModel(object):
         self.node_health = np.ones(shape)
         self.edge_health = np.ones(self.weight_shape)
 
-
     def reset_values(self):
         self.values = np.zeros(self.shape)
 
@@ -32,6 +31,8 @@ class RectModel(object):
 
         return self.values[-1]
 
+    def run(self, X):
+        return np.array([self.run_once(x) for x in X])
 
     def mutate(self, rate=0.001, edge_health_threshold=0.02):
         edge_diff = (self.edge_health >= edge_health_threshold).astype(int) * (np.random.rand(*self.weight_shape) * 2.0 - 1.0)* rate

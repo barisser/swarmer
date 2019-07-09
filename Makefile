@@ -1,4 +1,4 @@
 
 
 test:
-	python -m pytest tests --pdb --cov-report term-missing --cov swarmer
+	python -m pytest tests -s --pdb --cov-report term-missing --cov swarmer

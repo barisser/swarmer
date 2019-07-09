@@ -1,3 +1,5 @@
+import time
+
 import numpy as np
 
 import swarmer
@@ -14,3 +16,15 @@ def test_model():
     response = model.run_once(x)
     diff = model.mutate()
     assert (response != model.run_once(x)).all()
+
+    response3 = model.run(np.random.rand(1000, 4))
+    assert response3.shape == (1000, 4)
+
+def test_perf_simple():
+    x = np.random.rand(10, 784)
+    start=time.time()
+    model = swarmer.RectModel(784, 100)
+    print("Initialization took {0}s".format(time.time()-start))
+    start = time.time()
+    resp = model.run(x)
+    print("Run took {0}".format(time.time()-start))
