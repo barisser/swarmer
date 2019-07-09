@@ -14,7 +14,7 @@ def test_model():
     model = swarmer.RectModel(4, 3)
     x = np.random.rand(4)
     response = model.run_once(x)
-    diff = model.mutate()
+    model.mutate()
     assert (response != model.run_once(x)).all()
 
     response3 = model.run(np.random.rand(1000, 4))
@@ -26,5 +26,5 @@ def test_perf_simple():
     model = swarmer.RectModel(784, 100)
     print("Initialization took {0}s".format(time.time()-start))
     start = time.time()
-    resp = model.run(x)
+    model.run(x)
     print("Run took {0}".format(time.time()-start))
