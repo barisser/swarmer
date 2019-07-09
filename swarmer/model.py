@@ -34,7 +34,7 @@ class RectModel(object):
 
 
     def mutate(self, rate=0.001, edge_health_threshold=0.02):
-        edge_diff = (self.edge_health >= edge_health_threshold).astype(int) * (np.random.rand(*self.weight_shape) * 2.0 - 1.0)* rate
+        edge_diff = (self.edge_health >= edge_health_threshold).astype(int) * (np.random.rand(*self.weight_shape) * 2.0 - 1.0) * rate
         self.weights += edge_diff
         return edge_diff
 
